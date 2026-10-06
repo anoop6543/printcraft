@@ -11,7 +11,7 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 OVERLAY="$HERE/site"
 OUT="/tmp/split-happens-site"
 
-ZIP="$(ls -t "$ROOT"/dist/printcraft-web-*.zip | head -1)"
+ZIP="$(ls -t "$ROOT"/dist/release/printcraft-web-*.zip "$ROOT"/dist/printcraft-web-*.zip 2>/dev/null | head -1)"
 echo "using $ZIP"
 rm -rf /tmp/webdist "$OUT"
 mkdir -p /tmp/webdist "$OUT"
