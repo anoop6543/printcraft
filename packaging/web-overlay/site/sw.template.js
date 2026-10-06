@@ -1,9 +1,10 @@
 /* PrintCraft service worker: cache the app shell so it starts instantly offline. */
-const CACHE = 'printcraft-v0.2.1-3';
+const CACHE = 'printcraft-v0.2.1-4';
 const CORE = [
   './',
   './index.html',
   './manifest.webmanifest',
+  './privacy.html',
   './%%JS%%',
   './%%WASM%%',
   './icons/icon-192.png',

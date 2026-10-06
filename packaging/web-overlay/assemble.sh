@@ -11,12 +11,17 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 OVERLAY="$HERE/site"
 OUT="/tmp/split-happens-site"
 
-ZIP="$(ls -t "$ROOT"/dist/release/printcraft-web-*.zip "$ROOT"/dist/printcraft-web-*.zip 2>/dev/null | head -1)"
+ZIP="$(ls -t "$ROOT"/dist/release/printcraft-web-*.zip 2>/dev/null | head -1)"
+if [ -z "$ZIP" ]; then
+  ZIP="$(ls -t "$ROOT"/dist/printcraft-web-*.zip 2>/dev/null | head -1)"
+fi
+[ -n "$ZIP" ] || { echo "error: no printcraft-web-*.zip in $ROOT/dist/release or $ROOT/dist" >&2; exit 1; }
 echo "using $ZIP"
 rm -rf /tmp/webdist "$OUT"
 mkdir -p /tmp/webdist "$OUT"
 unzip -q "$ZIP" -d /tmp/webdist
-INNER="$(ls -d /tmp/webdist/printcraft-web-*/ | head -1)"
+INNER="$(ls -d /tmp/webdist/printcraft-web-*/ 2>/dev/null | head -1)"
+[ -n "$INNER" ] || { echo "error: no printcraft-web-*/ dir in /tmp/webdist" >&2; exit 1; }
 TRUNK_INDEX="$INNER/index.html"
 
 # Extract the hashed trunk asset names + integrity hashes from trunk's index.html.
