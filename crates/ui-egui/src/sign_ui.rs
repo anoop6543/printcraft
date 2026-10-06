@@ -613,7 +613,7 @@ fn sign_as(ui: &mut egui::Ui, app: &mut PrintCraftApp, t: &Tokens) -> bool {
         if in_keychain {
             ui.label("");
             ui.label(
-                egui::RichText::new("The key is in the macOS Keychain, which may ask to allow PrintCraft to use it.").small().color(t.text_muted),
+                egui::RichText::new("The key is in the macOS Keychain, which may ask to allow Split Happens to use it.").small().color(t.text_muted),
             );
         } else {
             let l = ui.label("Digital ID password");
