@@ -1,0 +1,70 @@
+# Rebrand web build: compiles the `rebrand` branch to WASM and publishes the
+# Split Happens site (full app + mobile PWA) to the `web-mobile` branch,
+# which GitHub Pages serves.
+#
+# Push to `rebrand` (or run manually) to rebuild. The wasm build takes a while;
+# check the Actions tab for progress.
+
+name: Rebrand Web Build
+
+on:
+  push:
+    branches: [rebrand]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and publish Split Happens web
+    runs-on: ubuntu-latest
+    env:
+      TRUNK_VERSION: 0.21.14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out craft-fonts (Japanese font build input)
+        uses: actions/checkout@v4
+        with:
+          repository: storytold/craft-fonts
+          ref: abb83316d96aa59c1cf64784289e378fe9fa5695
+          path: craft-fonts
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: rebrand-web
+
+      - name: Install trunk
+        run: |
+          curl -fsSL "https://github.com/trunk-rs/trunk/releases/download/v${TRUNK_VERSION}/trunk-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz -C "$HOME/.cargo/bin" trunk
+          trunk --version
+
+      - name: Build the web zip
+        env:
+          CRAFT_FONTS_DIR: ${{ github.workspace }}/craft-fonts
+          CRAFT_FONTS_REQUIRED: "1"
+        run: packaging/web/package.sh
+
+      - name: Assemble the Split Happens site
+        run: |
+          chmod +x packaging/web-overlay/assemble.sh
+          packaging/web-overlay/assemble.sh
+
+      - name: Publish to the web-mobile branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd /tmp/split-happens-site
+          git init -q
+          git checkout -q -b web-mobile
+          git add -A
+          git -c user.name='github-actions[bot]' \
+              -c user.email='github-actions[bot]@users.noreply.github.com' \
+              commit -qm "Rebuild Split Happens web app from rebrand@${GITHUB_SHA::12}"
+          git push -q --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" web-mobile
