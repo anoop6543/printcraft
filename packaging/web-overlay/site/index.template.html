@@ -7,8 +7,8 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="PrintCraft" />
-    <meta name="description" content="PrintCraft — an open-source PDF workbench. Combine, split, edit and sign PDFs, right on your phone. Works offline." />
+    <meta name="apple-mobile-web-app-title" content="Split Happens" />
+    <meta name="description" content="Split Happens — an open-source PDF workbench. Combine, split, edit and sign PDFs, right on your phone. Works offline." />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png" />
@@ -64,7 +64,7 @@
   <body>
     <div id="loader" role="status" aria-live="polite">
       <div class="logo">P</div>
-      <h1>PrintCraft</h1>
+      <h1>Split Happens</h1>
       <p id="loadmsg">Downloading the app (37&nbsp;MB, one time)…</p>
       <div class="bar"><div id="loadbar"></div></div>
       <div class="pct" id="loadpct">0%</div>
@@ -125,7 +125,7 @@ try {
   const { default: init, ...bindings } = await import('./%%JS%%');
   setProgress(0.02, 'Downloading the app (37&nbsp;MB, one time)…');
   const bytes = await fetchWithProgress(WASM_URL);
-  setProgress(1, 'Downloaded. Starting PrintCraft…');
+  setProgress(1, 'Downloaded. Starting Split Happens…');
   // Let the UI paint before the heavy compile step.
   await new Promise(r => setTimeout(r, 60));
   const wasm = await init({ module_or_path: bytes });
@@ -137,7 +137,7 @@ try {
   }));
 } catch (e) {
   console.error(e);
-  fail('Couldn&rsquo;t start PrintCraft. Check your connection and <b>use Wi-Fi</b> for the first load (37&nbsp;MB), then try again.');
+  fail('Couldn&rsquo;t start Split Happens. Check your connection and <b>use Wi-Fi</b> for the first load (37&nbsp;MB), then try again.');
 }
 </script>
   </body>
