@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#b7410e" />
+<meta name="description" content="Privacy and security at Split Happens: what happens to your files (nothing leaves your device) and what we collect (nothing)." />
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+<title>Privacy &amp; Security — Split Happens</title>
+<style>
+  :root {
+    --brand: #b7410e;
+    --bg: #f4f4f6; --card: #ffffff; --text: #1c1c1e; --muted: #6b6b70; --line: #e3e3e8;
+    --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141416; --card: #1e1e22; --text: #f2f2f4; --muted: #9a9aa2; --line: #2c2c31; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.65;
+  }
+  header {
+    padding: calc(var(--sat) + 14px) 20px 16px;
+    background: linear-gradient(135deg, #b7410e, #e07b39); color: #fff;
+  }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: 4px 0 0; font-size: 13px; opacity: .9; }
+  main { max-width: 640px; margin: 0 auto; padding: 16px 16px calc(var(--sab) + 32px); }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 18px; margin-bottom: 14px;
+  }
+  .card h2 { margin: 0 0 8px; font-size: 17px; }
+  .card p, .card li { font-size: 14.5px; color: var(--text); }
+  .card p.muted, .card li.muted { color: var(--muted); }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .tldr { border-left: 4px solid var(--brand); }
+  .tldr p { font-size: 15px; }
+  a { color: var(--brand); }
+  .back { display: inline-block; margin-bottom: 14px; font-size: 14px; font-weight: 600; text-decoration: none; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); margin-top: 20px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Privacy &amp; Security</h1>
+  <p>Split Happens — in plain language, no legalese.</p>
+</header>
+<main>
+  <a class="back" href="./">← Back to Split Happens</a>
+
+  <div class="card tldr">
+    <h2>The short version</h2>
+    <p><strong>Your files never leave your device, and we collect nothing about you.</strong> There is no account, no tracking, no analytics, and no server that could see your PDFs — because there is no server. This whole site is just static files.</p>
+  </div>
+
+  <div class="card">
+    <h2>What happens to your PDFs</h2>
+    <ul>
+      <li><strong>Split Happens mobile</strong> (/mobile/): your PDFs are processed inside your browser using the open-source pdf-lib library. Merging, splitting — it all happens on your phone.</li>
+      <li><strong>Split Happens full app</strong>: a Rust program compiled to WebAssembly that runs locally on your device, including offline after the first load.</li>
+      <li>Nothing is uploaded, emailed, or sent anywhere. If you turn off your Wi-Fi after the first load, everything still works — try it.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>What we collect: nothing</h2>
+    <ul>
+      <li>No accounts or sign-ups.</li>
+      <li>No analytics, trackers, or advertising cookies.</li>
+      <li>We don't know who you are, what files you open, or what you do with them.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>What the hosting provider sees</h2>
+    <p class="muted">Honesty corner: these pages are served by GitHub Pages. Like any web host, it inevitably sees basic technical logs (your IP address, which pages were requested). We don't have access to those logs, don't want them, and couldn't tie them to your files if we tried — your files never travel over the network at all.</p>
+  </div>
+
+  <div class="card">
+    <h2>What's stored on your device</h2>
+    <ul>
+      <li>App files are cached by your browser (via a service worker) so the app starts fast and works offline.</li>
+      <li>The full app may keep settings and a recent-files list in your browser's local storage.</li>
+      <li>Clearing the site's data in your browser settings removes all of it.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Optional cloud features</h2>
+    <p class="muted">The full app can connect to cloud storage providers <em>you</em> configure. That's off by default. If you turn it on, that provider's privacy policy applies to whatever you choose to send it.</p>
+  </div>
+
+  <div class="card">
+    <h2>Security, honestly</h2>
+    <ul>
+      <li>Split Happens is <a href="https://github.com/anoop6543/printcraft">open source</a> (MIT / Apache-2.0) — anyone can inspect exactly what it does.</li>
+      <li>It's early-stage software and hasn't had a formal security audit. Because your files never leave your device, the realistic risk is bugs, not surveillance — but for extremely sensitive documents, use your judgment as you would with any young software.</li>
+      <li>Found a problem? <a href="https://github.com/anoop6543/printcraft/issues">Report it on GitHub</a>.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Split Happens · Based on PrintCraft © 2026 ArtCraft Team and contributors (MIT / Apache-2.0).<br/>
+    This page itself collects nothing. Obviously.
+  </footer>
+</main>
+</body>
+</html>
